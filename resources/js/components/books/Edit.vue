@@ -16,14 +16,14 @@
                             </div>
                             <div class="col-12 mb-2">
                                 <div class="form-group">
-                                    <label>Quantity</label>
-                                    <input type="text" class="form-control" v-model="book.quantity">
+                                    <label>author</label>
+                                    <input type="text" class="form-control" v-model="book.author">
                                 </div>
                             </div>
                             <div class="col-12 mb-2">
                                 <div class="form-group">
-                                    <label>Price</label>
-                                    <input type="text" class="form-control" v-model="book.price">
+                                    <label>published_date</label>
+                                    <input type="text" class="form-control" v-model="book.published_date">
                                 </div>
                             </div>
                             <div class="col-12 mb-2">
@@ -50,8 +50,8 @@ export default {
         return {
             book:{
                 title:"",
-                quantity:"",
-                price:"",
+                author:"",
+                published_date:"",
                 description:"",
                 _method:"patch"
             }
@@ -63,10 +63,10 @@ export default {
     methods:{
         async showbook(){
             await this.axios.get(`/api/books/${this.$route.params.id}`).then(response=>{
-                const { title, quantity, price, description } = response.data
+                const { title, author, published_date, description } = response.data
                 this.book.title = title
-                this.book.quantity = quantity
-                this.book.price = price
+                this.book.author = author
+                this.book.published_date = published_date
                 this.book.description = description
             }).catch(error=>{
                 console.log(error)

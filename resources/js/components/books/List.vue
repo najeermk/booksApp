@@ -38,6 +38,7 @@
                             </tbody>
                         </table>
                     </div>
+                    <pagination align="center" :data="books" @pagination-change-page="list"></pagination>
                 </div>
             </div>
         </div>
@@ -53,11 +54,11 @@ export default {
         }
     },
     mounted(){
-        this.getbooks()
+        this.list()
     },
     methods:{
-        async getbooks(){
-            await this.axios.get('/api/books').then(response=>{
+        async list(page =1){
+            await this.axios.get(`/api/books?page=${page}`).then(response=>{
                 this.books = response.data
             }).catch(error=>{
                 console.log(error)
@@ -67,7 +68,7 @@ export default {
         deleteBook(id){
             if(confirm("Are you sure to delete this book ?")){
                 this.axios.delete(`/api/books/${id}`).then(response=>{
-                    this.getbooks()
+                    this.list()
                 }).catch(error=>{
                     console.log(error)
                 })
